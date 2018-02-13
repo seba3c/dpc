@@ -1,0 +1,35 @@
+name,economy (mpg),cylinders,displacement (cc),power (hp),weight (lb),0-60 mph (s),year
+AMC Ambassador Brougham,13,8,360,175,3821,11,73
+Audi 100 LS,20,4,114,91,2582,14,73
+BMW 2002,26,4,121,113,2234,12.5,70
+Buick Century 350,13,8,350,175,4100,13,73
+Cadillac Eldorado,23,8,350,125,3900,17.4,79
+Chevroelt Chevelle Malibu,16,6,250,105,3897,18.5,75
+Chevrolet Woody,24.5,4,98,60,2164,22.1,76
+Chevy C10,13,8,350,145,4055,12,76
+Chrysler Cordoba,15.5,8,400,190,4325,12.2,77
+Citroen DS-21 Pallas,,4,133,115,3090,17.5,70
+Datsun PL510,27,4,97,88,2130,14.5,71
+Dodge Aries SE,29,4,135,84,2525,16,82
+Fiat 124 Sport Coupe,26,4,98,90,2265,15.5,73
+Ford Capri II,25,4,140,92,2572,14.9,76
+Hi 1200D,9,8,304,193,4732,18.5,70
+Honda Accord CVCC,31.5,4,98,68,2045,18.5,77
+Maxda GLC Deluxe,34.1,4,86,65,1975,15.2,79
+Mazda 626,31.3,4,120,75,2542,17.5,80
+Mercedes-Benz 240D,30,4,146,67,3250,21.8,80
+Mercury Capri 2000,23,4,122,86,2220,14,71
+Nissan Stanza XE,36,4,120,88,2160,14.5,82
+Oldsmobile Cutlass Ciera (Diesel),38,6,262,85,3015,17,82
+Opel 1900,25,4,116,81,2220,16.9,76
+Peugeot 304,30,4,79,70,2074,19.5,71
+Plymouth Arrow GS,25.5,4,122,96,2300,15.5,77
+Pontiac Astro,23,4,140,78,2592,18.5,75
+Renault 12 (Wagon),26,4,96,69,2189,18,72
+Saab 900S,,4,121,110,2800,15.4,81
+Subaru DL,30,4,97,67,1985,16.4,77
+Toyota Carina,20,4,97,88,2279,19,73
+Triumph TR7 Coupe,35,4,122,88,2500,15.1,80
+Vokswagen Rabbit,29.8,4,89,62,1845,15.3,80
+Volkswagen 1131 Deluxe Sedan,26,4,97,46,1835,20.5,70
+Volvo 144EA,19,4,121,112,2868,15.5,73

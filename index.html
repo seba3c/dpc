@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Coordenadas Paralelas Dinámicas - Javascript-D3</title>
+	<link rel="icon" type="image/jpg" href="./img/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="./libs/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="./libs/bootstrap/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" type="text/css" href="./libs/bootstrap-fi/css/fileinput.min.css">
+	<link rel="stylesheet" type="text/css" href="./css/dpc-fonts.css">
+	<link rel="stylesheet" type="text/css" href="./css/dpc-dark-theme-svg.css" title="dark">
+	<script src="./libs/jquery/jquery-2.1.3.min.js"></script>
+	<script src="./libs/bootstrap/js/bootstrap.min.js"></script>
+	<script src="./libs/bootstrap-fi/js/fileinput.min.js"></script>
+	<script src="./libs/bootstrap-fi/js/fileinput_locale_es.js"></script>
+	<script src="./libs/d3/d3.min.js"></script>
+	<script src="./js/dpc-view.js"></script>
+	<script src="./js/dpc-data.js"></script>
+	<script src="./js/dpc-example.js"></script>
+	<script src="./js/dpc-svg.js"></script>
+</head>
+<body>
+	<div class="container">
+
+		<div class="page-header" id="title">
+			<h1>
+				Coordenadas Paralelas Dinámicas <small>Javascript-D3</small> 
+			</h1>
+			<h6><strong>Versión:</strong> 1.1</h6>
+			<h6><strong>Autor:</strong> Lic. Carlos Sebastián Castañeda - <a href="mailto:castanedacs@gmail.com">Email</a></h6>
+		</div>
+
+		<div class="row">
+		  <!-- PANELES LATERALES -->
+			<div class="col-md-3">
+        <!-- PANEL PARA CARGA DE DATOS -->
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">Carga de datos</h3>
+					</div>
+					<div class="panel-body">
+					  <!-- INPUT PARA ARCHIVO DE DATOS -->
+						<label>1.Archivo (formato csv):</label> 
+						<input class="file" type="file" name="input-file" id="input-file"/>
+            <!-- CONTAINER QUE MUESTRA LA INFO DEL ARCHIVO SELECCIONADO -->
+						<div class="alert alert-info" role="info" id="selected-file-info">
+							<ul></ul>
+						</div> 
+
+						<!-- TODO: ADEMAS DE INGRESAR UN TEXTO SE PODRIA TIPEAR O PEGAR TEXTO CON EL FORMATO ADECUADO -->
+						<span class="hidden">
+							<label>Pegar texto:</label> 
+							<textarea class="form-control" rows="3" id="input-text"></textarea>					
+						</span> 
+						<p></p>
+						<label>2.Título:</label>
+						<input class="form-control" type="text" id="svg-title"/>
+						
+						<!-- TODO: EN ESTE TEXT AREA SE DEBE CARGAR LA INFO DE TIPOS Y NOMBRES DE LAS CLAVES DEL ARCHIVO PARSEADO 
+						     PARA QUE PUEDAN SER EDITADAS DEFINIENDO LOS TIPOS DE CADA COORDENADA. 
+						     EN UNA SEGUNDA ETAPA SE PODRIA GENERAR WIDGETS DINAMICOS HTML QUE PERMITAN CONFIGURAR CADA COORDENADA
+						     LUEGO DE PARSEAR EL ARCHIVO Y ANTES DE MOSTRAR LA VISUALIZACION
+						-->
+						<div class="hidden">
+						  <label>Tipo de datos de las coordenadas:</label>
+					 	  <div class="input-info">
+							   <textarea class="form-control" rows="3" id="additional-input-info"></textarea> 
+						  </div>
+						</div>
+						
+						<p></p>
+						
+						<!-- BOTON PARA GENERAR LA VISUALIZACIÓN UNA VEZ CARGADO UN ARCHIVO DE DATOS -->
+						<button class="btn btn-primary btn-sm btn-block" type="button" id="generate-svg-btn">Visualizar</button>
+							
+					</div>
+
+          <!-- CONTENEDOR PARA MOSTRAR ERRORES DE PARSEO O LECTURA DE DATOS O CUALQUIER OTRO PROBLEMA AL
+          PROCESAR LOS DATOS Y/O GENERAR EL GRAFICO -->  
+					<div class="panel-footer">
+						<div class="alert alert-danger" role="alert" id="error-container"></div>
+					</div>
+				</div>
+
+        <!-- PANEL CON EJEMPLOS PREDEFINIDOS -->
+				<div class="panel panel-success">
+					<div class="panel-heading">
+						<h3 class="panel-title">Ejemplos</h3>
+					</div>
+					<div class="panel-body">
+					  <p>Seleccione alguno de los ejemplos predefinidos para visualizar el gráfico de coordenadas paralelas.</p>
+						<button class="btn btn-success btn-sm btn-block" type="button" id="cars-example-btn">Automoviles</button>
+						<p>Datos de automoviles fabricados entre los años 70 y 80. Ejemplo extraído de <a target="_blank" href="http://bl.ocks.org/jasondavies/1341281">jasondavies’s blocks</a>.
+						<br><small><a target="_blank" href="./res/cars.csv">Bajar Archivo</a></small>
+						</p>
+						<button class="btn btn-success btn-sm btn-block" type="button" id="cost-of-living-btn">Costo de Vida</button>
+						<p>Datos del costo de vida en diferentes ciudades. Ejemplo extraído de <a target="_blank" href="http://bl.ocks.org/mbostock/1558011">mbostock’s blocks</a>.
+						<br><small><a target="_blank" href="./res/cost-of-living.csv">Bajar Archivo</a></small>
+						</p>
+						<!-- TODO: TEST PARA DATOS CON COORDENADAS ORDINALES "NO IMPLEMENTADO" -->
+						<button class="btn btn-success btn-sm btn-block hidden" type="button" id="test-btn">Test Coordenadas Ordinales</button>						
+					</div>
+				</div>
+			</div>
+			
+			<!-- PANEL PARA EL GRÁFICO SVG -->
+			<div class="col-md-9">
+			
+			  <!-- TOOLBAR -->
+				<div class="text-right hidden">
+				<div class="btn-group btn-group-sm" role="group" aria-label="...">
+  					<div class="btn-group btn-group-sm" role="group">
+  					  <!-- TODO: LA EXPORTACIÓN NO ESTA IMPLEMENTADA CONSULTAR http://d3export.housegordon.org/ PARA IMPLEMETAR
+  					  -->
+    					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+      						Exportar como...
+      						<span class="caret"></span>
+   						 </button>
+    						<ul class="dropdown-menu" role="menu">
+      							<li><a href="#">PDF</a></li>
+      							<li><a href="#">SVG</a></li>
+      							<li><a href="#">PNG</a></li>
+    						</ul>
+  					</div>
+
+            <!-- TODO: FUNCIONALIDAD ADICIONAL PARA CAMBIAR EL ESTILO DE LA PÁGINA DE CLARO A OSCURO Y VICEVERSA
+              -->
+					  <div class="btn-group btn-group-sm" role="group">
+    					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+      						Estilo
+      						<span class="caret"></span>
+   						 </button>
+    						<ul class="dropdown-menu" role="menu">
+      							<li><a href="#">Dark</a></li>
+      							<li><a href="#">Light</a></li>
+    						</ul>
+  					</div>
+				</div>
+				</div>
+
+        <div class="alert alert-info alert-dismissible small" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <ol>
+            <li><strong>Orden de las coordenadas:</strong> click en el nombre de una coordenada y arrastrar.</li>
+            <li><strong>Crear editar y mover filtro :</strong> click sobre el eje de una coordenada y arrastrar. Una vez creado el filtro click sobre los bordes superior e inferior para cambiar su dimensión y click sobre el centro y arrastrar para cambiar su posición.</li>
+            <li><strong>Eliminar filtro :</strong> click sobre el eje de una coordenada fuera del filtro creado anteriormente.</li>
+          </ol>
+        </div>
+
+        <!-- CONTENEDOR PARA EL SVG QUE MUESTRA LA VISUALIZACIÓN -->
+        <div id="svg-container" class="parcoords"></div>
+								
+			</div>
+		</div>
+		 
+		<div class="footer">
+	    <hr>
+	    <div class="text-center" id="footer">
+	      <h6>Powered by <strong><a href="http://d3js.org/">D3.js</a></strong></h6>
+	    </div>
+    </div>
+  		
+  </div>		
+  <!-- INICIALIZA LA PAGINA Y CARGA EL EJEMPLO DE DATOS DE AUTOS INICIALMENTE -->
+	<script type="text/javascript">
+    dpc.view.init();
+    dpc.example.loadCars();
+  </script>
+
+</body>
+</html>

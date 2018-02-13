@@ -1,0 +1,66 @@
+body {
+  font-family: 'droid_sans', sans-serif;	
+}
+#title {
+  font-size: 36px;
+  font-weight: 100;
+}
+
+/*SVG*/
+.parcoords #title {
+ font-size: 18px;
+ text-decoration: underline;
+ margin-bottom: 15px;
+ cursor: default;
+}
+
+.parcoords > svg, .parcoords > canvas {
+    position: absolute;
+}
+.parcoords > canvas {
+    pointer-events: none;
+}
+.parcoords rect.background {
+    fill: transparent;
+}
+.parcoords rect.background:hover {
+    fill: rgba(120, 120, 120, 0.2);
+}
+.parcoords .resize rect {
+    fill: rgba(0, 0, 0, 0.1);
+}
+.parcoords rect.extent {
+    fill-opacity: .3;
+	stroke: #fff;
+	shape-rendering: crispEdges;
+}
+
+.parcoords .axis line, .parcoords .axis path {
+    fill: none;
+    shape-rendering: crispedges;
+    stroke: #000;
+}
+
+.parcoords text {
+	cursor: move;
+	fill: black;
+}
+
+.parcoords canvas {
+    opacity: 1;
+    transition: opacity 0.3s ease 0s;
+}
+.parcoords canvas.faded {
+    opacity: 0.25;
+}
+
+.parcoords .background path {
+	fill: none;
+	stroke: #ddd;
+	shape-rendering: crispEdges;
+}
+
+.parcoords .foreground path {
+	fill: none;
+	stroke: steelblue;
+}
